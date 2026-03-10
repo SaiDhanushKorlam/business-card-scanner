@@ -4,6 +4,13 @@ const { Sequelize, DataTypes } = require('sequelize');
 // Setup the connection using the single connection string
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
+    // ADDED: This block is required for connecting to Neon DB or Google Cloud SQL!
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    },
     logging: false // Set to true if you want to see the SQL queries in the terminal
 });
 
